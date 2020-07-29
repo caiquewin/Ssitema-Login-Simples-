@@ -59,7 +59,7 @@ namespace ProjetoLogin.Modelo
         {
             if (senha.Equals(confSenha))
             {
-                cmd.CommandText = "insert into dbo.logins VALUES ('@email','@senha');";
+                cmd.CommandText = "insert into dbo.logins(email,senha) values(@email,@senha)";
                 cmd.Parameters.AddWithValue("@email", email);
                 cmd.Parameters.AddWithValue("@senha", senha);
 
