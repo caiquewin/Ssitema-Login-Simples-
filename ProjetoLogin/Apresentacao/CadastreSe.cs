@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjetoLogin.Modelo;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,6 +21,21 @@ namespace ProjetoLogin.Apresentacao
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnCadastrar_Click(object sender, EventArgs e)
+        {
+            Controle controle = new Controle();
+            string messagem = controle.cadastrar(txbLogin.Text, txbSenha.Text, txbConfirmaSenha.Text) ;
+            if (controle.tem)
+            {
+                MessageBox.Show(messagem, "Cadastro", MessageBoxButtons.OK,MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show(controle.mensagem);
+            }
+            
         }
     }
 }

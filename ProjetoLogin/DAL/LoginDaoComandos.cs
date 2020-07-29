@@ -23,7 +23,7 @@ namespace ProjetoLogin.Modelo
         * falso se tiver os dois certo vai voltar com o valor verdadeiro.
         */
 
-        public  bool verificarLogin(String login, string senha) //1° recebe a informação do controle que venho do formulario (login e senha)
+        public bool verificarLogin(String login, string senha) //1° recebe a informação do controle que venho do formulario (login e senha)
 
         {
             //aqui vamos escrever o comando no banco de dados aqui
@@ -35,30 +35,55 @@ namespace ProjetoLogin.Modelo
             try // o try vai execultar essa informação
             {
                 cmd.Connection = con.conectar();// aqui  é a linha que escrevemos 
-               dr = cmd.ExecuteReader();// aqui ele guarda as informações 
+                dr = cmd.ExecuteReader();// aqui ele guarda as informações 
                 if (dr.HasRows)//se foi encontrado informações
                 {
-                    tem = true; 
+                    tem = true;
                 }
             }
             catch (SqlException)
             {
                 this.mensagem = "Erro com banco de Dados!";
-                
+
             }
             //aqui iremos colocar os comandos SQL para verificar se tem no Banco de Dados
             return tem;
         }
-        
+
         /*
          * Esse método vai cadastrar ele vai pegar o email e a senha
          * do controle e vai enviar para essa classe e esse método vai realmente cadastrar 
          * no Banco
          */
-         public string cadastrar ( string email, string senha, string confSenha)
+        public string cadastrar(string email, string senha, string confSenha)
         {
-            //comando para inserir 
+            if (senha.Equals(confSenha))
+            {
+                cmd.CommandText = "insert into dbo.logins VALUES ('@email','@senha');";
+                cmd.Parameters.AddWithValue("@email", email);
+                cmd.Parameters.AddWithValue("@senha", senha);
+
+                try
+                {
+                    cmd.Connection = con.conectar();
+                    cmd.ExecuteNonQuery();
+                    con.desconectar();
+                    this.mensagem = "Cadastrado com sucesso";
+                    tem = true;
+                }
+                catch (SqlException)
+                {
+
+                    this.mensagem = "Erro com banco de dados";
+                }
+            }
+
+            else
+            {
+                this.mensagem = "Senhas não correspondem";
+            }
             return mensagem;
         }
     }
 }
+

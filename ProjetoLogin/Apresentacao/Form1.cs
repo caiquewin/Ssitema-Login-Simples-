@@ -24,7 +24,6 @@ namespace ProjetoLogin
         {
             CadastreSe cad = new CadastreSe();
             cad.Show();
-            this.Visible = false;
         }
 
         private void btnSair_Click(object sender, EventArgs e)

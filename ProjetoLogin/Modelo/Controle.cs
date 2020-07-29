@@ -26,10 +26,15 @@ namespace ProjetoLogin.Modelo
         // método para cadastrar
 
         
-        public string cadastrar(String email, string senha, string confirmaSenha)
+        public string cadastrar(String email, string senha, string confSenha)
         {
+
             LoginDaoComandos loginDao = new LoginDaoComandos();
-            loginDao.cadastrar(email, senha, confirmaSenha);
+            this.mensagem=loginDao.cadastrar(email, senha,confSenha);
+            if (loginDao.tem )
+            {
+                this.tem = true;
+            }
             return mensagem; // aqui ele retorna com a mesagem
         }
 
